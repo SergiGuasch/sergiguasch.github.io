@@ -1,0 +1,11 @@
+/*Estilo del mapa*/
+/*Tamaño del mapa*/
+	#map{
+		width: 100%;
+		height: 100%;
+	}
+
+	body, html{
+		height:100%;
+		overflow:hidden;
+	}

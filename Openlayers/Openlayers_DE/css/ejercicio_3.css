@@ -1,0 +1,36 @@
+#map{
+   width: 99vw;
+   height: 85vh;
+}
+
+/*seleccionar con el inspector, después Copy CSS Selector y paste aquí:*/
+div.ol-unselectable:nth-child(5){
+    bottom: 10px;
+    left: 10px;
+    width: 155px;
+}
+
+div.ol-unselectable:nth-child(6){
+    top: 470px;
+    right: 0px;
+    width: 220px;
+    height: 325px;
+}
+
+.ol-zoom{top:50px;}
+.ol-full-screen{
+   top:5px;
+   left: 9px;
+   width: 26px;
+}
+
+.custom-mouse-position {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: red;
+  width: 110px;
+  text-align: center;
+}
