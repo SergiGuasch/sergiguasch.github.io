@@ -115,10 +115,23 @@ function getActivities(code, page){
 
                 function displayPopup(event, activity) {
 
+                        const totalSeconds = parseInt(activity.moving_time);
+                        const hours = Math.floor(totalSeconds / 3600);
+                        const minutes = Math.floor((totalSeconds % 3600) / 60);
+                        const seconds = totalSeconds % 60;
+                        const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                        const etotalSeconds = parseInt(activity.elapsed_time);
+                        const ehours = Math.floor(etotalSeconds / 3600);
+                        const eminutes = Math.floor((etotalSeconds % 3600) / 60);
+                        const eseconds = etotalSeconds % 60;
+                        const etimeString = `${ehours.toString().padStart(2, '0')}:${eminutes.toString().padStart(2, '0')}:${eseconds.toString().padStart(2, '0')}`;                        
+
                         var popupContent = '<b>' + activity.name.toUpperCase() + '</b><br>' +
                                             '<b>Sport:</b> ' + activity.type + '<br>' +
                                             '<b>Date:</b> ' + new Date(activity.start_date_local).toLocaleDateString() + '<br>' +
-                                            '<b>Time:</b> ' + new Date(activity.start_date_local).toLocaleTimeString() + '<br>' +
+                                            '<b>Moving time:</b> ' + timeString + '<br>' +
+                                            '<b>Total time:</b> ' + etimeString + '<br>' +
                                             '<b>Distance:</b> ' + (activity.distance / 1000).toFixed(2) + ' km<br>' +
                                             '<b>Elevation:</b> ' + activity.total_elevation_gain.toFixed(0) + ' m';  
 
