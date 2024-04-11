@@ -5,7 +5,7 @@ The next links are the web maps visors:
 
 - [Leaflet Map connected to Strava API](https://sergiguasch.github.io/Leaflet/Strava/)
 
-- [Leaflet Map connected to HERE API](https://sergiguasch.github.io/Leaflet/Routing/Qatar/)
+- [Leaflet Map connected to HERE API - Routing](https://sergiguasch.github.io/Leaflet/Routing/Qatar/)
 
 - [Openlayers Map Development Environment](https://github.com/SergiGuasch/sergiguasch.github.io/tree/main/Openlayers/Openlayers_DE) (Requires to install Node.js for a local environment)
 
