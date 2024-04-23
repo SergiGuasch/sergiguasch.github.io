@@ -2,7 +2,18 @@
 //const origin = { lat: 25.31644, lng: 51.48708 };
 //const destination = { lat: 25.26743, lng: 51.52502 };
 
-const apiKey = 'yPMFk-Bg30LOe8Msg8G0NxNTbgG2urzgfTjJcFZghYs'; // Replace with your actual HERE API key
+/* 
+jhQEnzWNs81wkEHmTHrEWKXvCd_rZ3HzifDQSNr1FM8
+sB0GL6tlSY552sugzmoOJ5xBCAxgBXiE-XxjE5_OqmU
+
+yPMFk-Bg30LOe8Msg8G0NxNTbgG2urzgfTjJcFZghYs
+fMg9FNcT9S4o3dsFu4F2bWAPQqVJ8o55OPOpiSgT-qE
+
+MCakrvXlXFvGDz8cSbkPQwmgMl96xGlZEZ5zlumeYyQ
+Hdm8Sa8Iw5psGRG2OCGM2Y3m-aRRSkCy0KbaYDy30Ww
+*/
+
+const apiKey = 'jhQEnzWNs81wkEHmTHrEWKXvCd_rZ3HzifDQSNr1FM8'; // Replace with your actual HERE API key
 import { decode } from "./datos/flexible_polyline.js";
 
 const buttonAd = document.getElementById("getRoute");
