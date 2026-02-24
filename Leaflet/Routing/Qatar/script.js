@@ -13,7 +13,12 @@ MCakrvXlXFvGDz8cSbkPQwmgMl96xGlZEZ5zlumeYyQ
 Hdm8Sa8Iw5psGRG2OCGM2Y3m-aRRSkCy0KbaYDy30Ww
 */
 
-const apiKey = 'jhQEnzWNs81wkEHmTHrEWKXvCd_rZ3HzifDQSNr1FM8'; // Replace with your actual HERE API key
+const DEFAULT_HERE_API_KEY = 'yPMFk-Bg30LOe8Msg8G0NxNTbgG2urzgfTjJcFZghYs';
+const queryApiKey = new URLSearchParams(window.location.search).get('hereApiKey');
+if (queryApiKey) {
+    localStorage.setItem('hereApiKey', queryApiKey);
+}
+const apiKey = queryApiKey || localStorage.getItem('hereApiKey') || DEFAULT_HERE_API_KEY;
 import { decode } from "./datos/flexible_polyline.js";
 
 const buttonAd = document.getElementById("getRoute");
@@ -98,6 +103,10 @@ async function getRouteDetails(originLat, originLng, destLat, destLng, transport
     try {
         // Fetch route information using the constructed URL
         const response = await fetch(routingURL);
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HERE routing error ${response.status}: ${errorText}`);
+        }
         // Parse the response data as JSON
         const data = await response.json();
         // Check if there is at least one route in the response
@@ -181,6 +190,10 @@ async function getRouteDetails(originLat, originLng, destLat, destLng, transport
 
     } catch (error) {
         console.error("Error fetching route:", error);
+        if (String(error).includes('401')) {
+            document.getElementById("duration").textContent = "HERE API key no autorizada (401)";
+            document.getElementById("distance").textContent = "Usa ?hereApiKey=TU_API_KEY";
+        }
         return null; // Return null if an error occurs
         // Handle error...
 
@@ -304,30 +317,14 @@ buttonAd.addEventListener("click", async () => {
 var mymap = L.map('mapid').setView([25.276987, 51.520067], 13);
 
 var satelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-});
+    attribution: 'Tiles (c) Esri - Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+}).addTo(mymap);
 
 var topo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles © Esri — Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
 });
 
-const style = 'normal.day';
-
-/*
-normal.day
-normal.day.grey
-normal.day.transit
-reduced.day
-normal.night
-reduced.night
-pedestrian.day
-*/
-
-var HEREmap = L.tileLayer(`https://2.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/${style}/{z}/{x}/{y}/512/png8?apiKey=${apiKey}&ppi=320`,{
-    attribution: '&copy; HERE 2019'}).addTo(mymap);
-
 var baseMaps = {
-    "HERE": HEREmap,
     "Satelite": satelite,
     "Topo": topo
 };
@@ -754,3 +751,4 @@ hiddenFileInput.addEventListener("change", handleFileSelect);
 
 // Add event listener to the "clear ALL" button
 document.getElementById("clearALL").addEventListener("click", clearALL);
+
